@@ -19,6 +19,8 @@ package org.apache.helix.integration.controller;
  * under the License.
  */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,8 +35,6 @@ import org.apache.helix.model.ControllerHistory;
 import org.apache.helix.model.ExternalView;
 import org.apache.helix.model.IdealState;
 import org.apache.helix.model.MaintenanceSignal;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.TypeFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -381,6 +381,6 @@ public class TestClusterMaintenanceMode extends TaskTestBase {
    */
   private static Map<String, String> convertStringToMap(String value) throws IOException {
     return new ObjectMapper().readValue(value,
-        TypeFactory.mapType(HashMap.class, String.class, String.class));
+        TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, String.class));
   }
 }

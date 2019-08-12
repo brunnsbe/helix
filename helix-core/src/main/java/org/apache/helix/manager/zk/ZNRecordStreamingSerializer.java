@@ -21,14 +21,15 @@ package org.apache.helix.manager.zk;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import org.I0Itec.zkclient.exception.ZkMarshallingError;
 import org.I0Itec.zkclient.serialize.ZkSerializer;
 import org.apache.commons.codec.binary.Base64;
@@ -37,10 +38,6 @@ import org.apache.helix.ZNRecord;
 import org.apache.helix.util.GZipCompressionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonToken;
 
 import com.google.common.collect.Maps;
 

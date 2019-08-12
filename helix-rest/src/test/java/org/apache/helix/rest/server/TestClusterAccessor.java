@@ -33,6 +33,9 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.helix.HelixDataAccessor;
 import org.apache.helix.PropertyKey;
 import org.apache.helix.TestHelper;
@@ -56,10 +59,6 @@ import org.apache.helix.rest.server.resources.helix.ClusterAccessor;
 import org.apache.helix.rest.server.util.JerseyUriRequestBuilder;
 import org.apache.helix.tools.ClusterStateVerifier;
 import org.apache.helix.tools.ClusterVerifiers.BestPossibleExternalViewVerifier;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -301,7 +300,7 @@ public class TestClusterAccessor extends AbstractTestClass {
         get("clusters/" + cluster + "/maintenance", null, Response.Status.OK.getStatusCode(), true);
     JsonNode node = OBJECT_MAPPER.readTree(body);
     boolean maintenance =
-        node.get(ClusterAccessor.ClusterProperties.maintenance.name()).getBooleanValue();
+        node.get(ClusterAccessor.ClusterProperties.maintenance.name()).booleanValue();
     Assert.assertTrue(maintenance);
 
     // Check that we could retrieve maintenance signal correctly
@@ -323,7 +322,7 @@ public class TestClusterAccessor extends AbstractTestClass {
     body = get("clusters/" + cluster + "/maintenance", null, Response.Status.OK.getStatusCode(), true);
     node = OBJECT_MAPPER.readTree(body);
     Assert.assertFalse(
-        node.get(ClusterAccessor.ClusterProperties.maintenance.name()).getBooleanValue());
+        node.get(ClusterAccessor.ClusterProperties.maintenance.name()).booleanValue());
 
     get("clusters/" + cluster + "/controller/maintenanceSignal", null,
         Response.Status.NOT_FOUND.getStatusCode(), false);

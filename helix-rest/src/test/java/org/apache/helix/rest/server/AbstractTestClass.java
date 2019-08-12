@@ -37,6 +37,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.I0Itec.zkclient.ZkServer;
 import org.apache.helix.AccessOption;
 import org.apache.helix.BaseDataAccessor;
@@ -80,7 +81,6 @@ import org.apache.helix.task.Workflow;
 import org.apache.helix.task.WorkflowContext;
 import org.apache.helix.tools.ClusterSetup;
 import org.apache.helix.util.ZKClientPool;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.DeploymentContext;

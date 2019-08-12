@@ -26,6 +26,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.helix.*;
 import org.apache.helix.manager.zk.ZKHelixDataAccessor;
 import org.apache.helix.model.*;
@@ -36,10 +40,6 @@ import org.apache.helix.rest.server.json.instance.InstanceInfo;
 import org.apache.helix.rest.server.json.instance.StoppableCheck;
 import org.apache.helix.rest.server.service.InstanceService;
 import org.apache.helix.rest.server.service.InstanceServiceImpl;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.JsonNodeFactory;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.jetty.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -154,7 +154,7 @@ public class PerInstanceAccessor extends AbstractHelixResource {
           return badRequest("Instance names are not match!");
         }
         admin.resetPartition(clusterId, instanceName,
-            node.get(PerInstanceProperties.resource.name()).getTextValue(), (List<String>) OBJECT_MAPPER
+            node.get(PerInstanceProperties.resource.name()).textValue(), (List<String>) OBJECT_MAPPER
                 .readValue(node.get(PerInstanceProperties.partitions.name()).toString(),
                     OBJECT_MAPPER.getTypeFactory()
                         .constructCollectionType(List.class, String.class)));
@@ -181,7 +181,7 @@ public class PerInstanceAccessor extends AbstractHelixResource {
         break;
       case enablePartitions:
         admin.enablePartition(true, clusterId, instanceName,
-            node.get(PerInstanceProperties.resource.name()).getTextValue(),
+            node.get(PerInstanceProperties.resource.name()).textValue(),
             (List<String>) OBJECT_MAPPER
                 .readValue(node.get(PerInstanceProperties.partitions.name()).toString(),
                     OBJECT_MAPPER.getTypeFactory()
@@ -189,7 +189,7 @@ public class PerInstanceAccessor extends AbstractHelixResource {
         break;
       case disablePartitions:
         admin.enablePartition(false, clusterId, instanceName,
-            node.get(PerInstanceProperties.resource.name()).getTextValue(),
+            node.get(PerInstanceProperties.resource.name()).textValue(),
             (List<String>) OBJECT_MAPPER
                 .readValue(node.get(PerInstanceProperties.partitions.name()).toString(),
                     OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, String.class)));
@@ -490,6 +490,6 @@ public class PerInstanceAccessor extends AbstractHelixResource {
   }
 
   private boolean validInstance(JsonNode node, String instanceName) {
-    return instanceName.equals(node.get(Properties.id.name()).getValueAsText());
+    return instanceName.equals(node.get(Properties.id.name()).textValue());
   }
 }

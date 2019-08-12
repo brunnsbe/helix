@@ -19,6 +19,8 @@ package org.apache.helix.integration.messaging;
  * under the License.
  */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.ImmutableList;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -52,8 +54,6 @@ import org.apache.helix.model.Message.MessageState;
 import org.apache.helix.model.Message.MessageType;
 import org.apache.helix.model.StatusUpdate;
 import org.apache.helix.monitoring.ZKPathDataDumpTask;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -221,8 +221,7 @@ public class TestSchedulerMessage extends ZkStandAloneCMTestBase {
     cr.setPartition("%");
 
     ObjectMapper mapper = new ObjectMapper();
-    SerializationConfig serializationConfig = mapper.getSerializationConfig();
-    serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
+    mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
     StringWriter sw = new StringWriter();
     mapper.writeValue(sw, cr);
@@ -354,8 +353,7 @@ public class TestSchedulerMessage extends ZkStandAloneCMTestBase {
     cr.setPartition("%");
 
     ObjectMapper mapper = new ObjectMapper();
-    SerializationConfig serializationConfig = mapper.getSerializationConfig();
-    serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
+    mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
     StringWriter sw = new StringWriter();
     mapper.writeValue(sw, cr);
@@ -427,8 +425,7 @@ public class TestSchedulerMessage extends ZkStandAloneCMTestBase {
     cr.setPartition("%");
 
     ObjectMapper mapper = new ObjectMapper();
-    SerializationConfig serializationConfig = mapper.getSerializationConfig();
-    serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
+    mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
     StringWriter sw = new StringWriter();
     mapper.writeValue(sw, cr);
@@ -450,8 +447,7 @@ public class TestSchedulerMessage extends ZkStandAloneCMTestBase {
     MockAsyncCallback callback;
     cr.setInstanceName("localhost_%");
     mapper = new ObjectMapper();
-    serializationConfig = mapper.getSerializationConfig();
-    serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
+    mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
     sw = new StringWriter();
     mapper.writeValue(sw, cr);
@@ -463,8 +459,7 @@ public class TestSchedulerMessage extends ZkStandAloneCMTestBase {
       callback = new MockAsyncCallback();
       cr.setInstanceName("localhost_" + (START_PORT + i));
       mapper = new ObjectMapper();
-      serializationConfig = mapper.getSerializationConfig();
-      serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
+      mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
       sw = new StringWriter();
       mapper.writeValue(sw, cr);
@@ -541,8 +536,7 @@ public class TestSchedulerMessage extends ZkStandAloneCMTestBase {
     cr.setPartition("%");
 
     ObjectMapper mapper = new ObjectMapper();
-    SerializationConfig serializationConfig = mapper.getSerializationConfig();
-    serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
+    mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
     StringWriter sw = new StringWriter();
     mapper.writeValue(sw, cr);
@@ -572,8 +566,7 @@ public class TestSchedulerMessage extends ZkStandAloneCMTestBase {
     MockAsyncCallback callback = new MockAsyncCallback();
     cr.setInstanceName("localhost_%");
     mapper = new ObjectMapper();
-    serializationConfig = mapper.getSerializationConfig();
-    serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
+    mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
     sw = new StringWriter();
     mapper.writeValue(sw, cr);
@@ -591,8 +584,7 @@ public class TestSchedulerMessage extends ZkStandAloneCMTestBase {
       callback = new MockAsyncCallback();
       cr.setInstanceName("localhost_" + (START_PORT + i));
       mapper = new ObjectMapper();
-      serializationConfig = mapper.getSerializationConfig();
-      serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
+      mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
       sw = new StringWriter();
       mapper.writeValue(sw, cr);

@@ -31,6 +31,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.helix.HelixDataAccessor;
 import org.apache.helix.HelixException;
 import org.apache.helix.TestHelper;
@@ -42,7 +43,6 @@ import org.apache.helix.rest.server.resources.AbstractResource;
 import org.apache.helix.rest.server.resources.helix.InstancesAccessor;
 import org.apache.helix.rest.server.resources.helix.PerInstanceAccessor;
 import org.apache.helix.rest.server.util.JerseyUriRequestBuilder;
-import org.codehaus.jackson.JsonNode;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -88,7 +88,7 @@ public class TestPerInstanceAccessor extends AbstractTestClass {
         .isBodyReturnExpected(true).format(CLUSTER_NAME, testInstance).get(this);
     JsonNode node = OBJECT_MAPPER.readTree(body);
     int newMessageCount =
-        node.get(PerInstanceAccessor.PerInstanceProperties.total_message_count.name()).getIntValue();
+        node.get(PerInstanceAccessor.PerInstanceProperties.total_message_count.name()).intValue();
 
     Assert.assertEquals(newMessageCount, 1);
     System.out.println("End test :" + TestHelper.getTestMethodName());
@@ -117,7 +117,7 @@ public class TestPerInstanceAccessor extends AbstractTestClass {
             .isBodyReturnExpected(true).format(CLUSTER_NAME, testInstance).get(this);
     JsonNode node = OBJECT_MAPPER.readTree(body);
     int newMessageCount =
-        node.get(PerInstanceAccessor.PerInstanceProperties.total_message_count.name()).getIntValue();
+        node.get(PerInstanceAccessor.PerInstanceProperties.total_message_count.name()).intValue();
 
     Assert.assertEquals(newMessageCount, 1);
 
@@ -126,7 +126,7 @@ public class TestPerInstanceAccessor extends AbstractTestClass {
             .isBodyReturnExpected(true).format(CLUSTER_NAME, testInstance).get(this);
     node = OBJECT_MAPPER.readTree(body);
     newMessageCount =
-        node.get(PerInstanceAccessor.PerInstanceProperties.total_message_count.name()).getIntValue();
+        node.get(PerInstanceAccessor.PerInstanceProperties.total_message_count.name()).intValue();
 
     Assert.assertEquals(newMessageCount, 0);
     System.out.println("End test :" + TestHelper.getTestMethodName());
@@ -157,7 +157,7 @@ public class TestPerInstanceAccessor extends AbstractTestClass {
     JsonNode node = OBJECT_MAPPER.readTree(body);
     String instancesCfg = node.get(PerInstanceAccessor.PerInstanceProperties.config.name()).toString();
     Assert.assertNotNull(instancesCfg);
-    boolean isHealth = node.get("health").getBooleanValue();
+    boolean isHealth = node.get("health").booleanValue();
     Assert.assertFalse(isHealth);
 
     InstanceConfig instanceConfig = new InstanceConfig(toZNRecord(instancesCfg));

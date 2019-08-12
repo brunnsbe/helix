@@ -24,15 +24,17 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.I0Itec.zkclient.serialize.ZkSerializer;
 import org.apache.helix.HelixException;
 import org.apache.helix.ZNRecord;
 import org.apache.helix.util.GZipCompressionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
 
 public class ZNRecordSerializer implements ZkSerializer {
   private static Logger logger = LoggerFactory.getLogger(ZNRecordSerializer.class);
@@ -75,10 +77,10 @@ public class ZNRecordSerializer implements ZkSerializer {
 
     // do serialization
     ObjectMapper mapper = new ObjectMapper();
-    SerializationConfig serializationConfig = mapper.getSerializationConfig();
-    serializationConfig.set(SerializationConfig.Feature.INDENT_OUTPUT, true);
-    serializationConfig.set(SerializationConfig.Feature.AUTO_DETECT_FIELDS, true);
-    serializationConfig.set(SerializationConfig.Feature.CAN_OVERRIDE_ACCESS_MODIFIERS, true);
+    mapper.enable(SerializationFeature.INDENT_OUTPUT);
+    mapper.enable(MapperFeature.AUTO_DETECT_FIELDS);
+    mapper.enable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
+
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     byte[] serializedBytes;
     try {
@@ -112,10 +114,9 @@ public class ZNRecordSerializer implements ZkSerializer {
     ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
 
     ObjectMapper mapper = new ObjectMapper();
-    DeserializationConfig deserializationConfig = mapper.getDeserializationConfig();
-    deserializationConfig.set(DeserializationConfig.Feature.AUTO_DETECT_FIELDS, true);
-    deserializationConfig.set(DeserializationConfig.Feature.AUTO_DETECT_SETTERS, true);
-    deserializationConfig.set(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+    mapper.enable(MapperFeature.AUTO_DETECT_FIELDS);
+    mapper.enable(MapperFeature.AUTO_DETECT_SETTERS);
+    mapper.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     try {
       //decompress the data if its already compressed
       if (GZipCompressionUtil.isCompressed(bytes)) {

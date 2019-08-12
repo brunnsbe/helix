@@ -33,6 +33,8 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.helix.AccessOption;
 import org.apache.helix.HelixDataAccessor;
 import org.apache.helix.HelixManager;
@@ -46,8 +48,6 @@ import org.apache.helix.model.IdealState;
 import org.apache.helix.model.ResourceConfig;
 import org.apache.helix.model.builder.FullAutoModeISBuilder;
 import org.apache.helix.rest.server.resources.helix.ResourceAccessor;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.type.TypeReference;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -198,9 +198,7 @@ public class TestResourceAccessor extends AbstractTestClass {
         Response.Status.OK.getStatusCode(), true);
 
     JsonNode node = OBJECT_MAPPER.readTree(body);
-    Map<String, String> healthStatus =
-        OBJECT_MAPPER.readValue(node, new TypeReference<Map<String, String>>() {
-        });
+    Map<String, String> healthStatus = OBJECT_MAPPER.convertValue(node, new TypeReference<Map<String, String>>() {});
 
     Assert.assertEquals(healthStatus.get("p0"), "HEALTHY");
     Assert.assertEquals(healthStatus.get("p1"), "PARTIAL_HEALTHY");
@@ -281,9 +279,7 @@ public class TestResourceAccessor extends AbstractTestClass {
         Response.Status.OK.getStatusCode(), true);
 
     JsonNode node = OBJECT_MAPPER.readTree(body);
-    Map<String, String> healthStatus =
-        OBJECT_MAPPER.readValue(node, new TypeReference<Map<String, String>>() {
-        });
+    Map<String, String> healthStatus = OBJECT_MAPPER.convertValue(node, new TypeReference<Map<String, String>>() {});
 
     Assert.assertEquals(healthStatus.get(resourceNameHealthy), "HEALTHY");
     Assert.assertEquals(healthStatus.get(resourceNamePartiallyHealthy), "PARTIAL_HEALTHY");

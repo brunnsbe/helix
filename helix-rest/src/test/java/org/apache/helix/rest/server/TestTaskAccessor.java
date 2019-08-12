@@ -1,5 +1,6 @@
 package org.apache.helix.rest.server;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.util.HashMap;
@@ -8,7 +9,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.helix.TestHelper;
-import org.codehaus.jackson.type.TypeReference;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

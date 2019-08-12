@@ -10,13 +10,13 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.helix.TestHelper;
 import org.apache.helix.model.ClusterConfig;
 import org.apache.helix.model.InstanceConfig;
 import org.apache.helix.rest.server.resources.helix.InstancesAccessor;
 import org.apache.helix.rest.server.util.JerseyUriRequestBuilder;
 import org.apache.helix.tools.ClusterVerifiers.BestPossibleExternalViewVerifier;
-import org.codehaus.jackson.JsonNode;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

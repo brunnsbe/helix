@@ -35,6 +35,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.helix.AccessOption;
 import org.apache.helix.ConfigAccessor;
@@ -58,7 +59,6 @@ import org.apache.helix.rest.server.json.cluster.ClusterTopology;
 import org.apache.helix.rest.server.service.ClusterService;
 import org.apache.helix.rest.server.service.ClusterServiceImpl;
 import org.apache.helix.tools.ClusterSetup;
-import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

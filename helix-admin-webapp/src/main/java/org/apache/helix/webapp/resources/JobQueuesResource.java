@@ -19,6 +19,8 @@ package org.apache.helix.webapp.resources;
  * under the License.
  */
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.common.collect.Lists;
 import org.apache.helix.HelixDataAccessor;
 import org.apache.helix.HelixException;
@@ -32,8 +34,6 @@ import org.apache.helix.task.Workflow;
 import org.apache.helix.task.WorkflowConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Parameter;
